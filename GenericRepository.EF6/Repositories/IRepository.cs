@@ -1,4 +1,6 @@
 ﻿using GenericRepository.Entities;
+using GenericRepository.Paging;
+using GenericRepository.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,5 +43,10 @@ namespace GenericRepository.Repositories
 		Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
 
         void SetUnchanged(TEntity entitieit);
+        //Paging
+        DataPage<TEntity> Get(int pageNumber, int pageLength, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        Task<DataPage<TEntity>> GetAsync(int pageNumber, int pageLength, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        DataPage<TEntity> Query(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        Task<DataPage<TEntity>> QueryAsync(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
     }
 }
