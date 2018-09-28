@@ -14,14 +14,14 @@ namespace Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUowProvider _uowProvider=new UowProvider<AppContext>();
+        private readonly IUowProvider _uowProvider=new UowProvider();
 
         public async Task<ActionResult> Index()
         {
             //await Seed();
             IEnumerable<Department> buildings = null;
 
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>())
             {
                 var repository = uow.GetRepository<Department>();
 
@@ -129,7 +129,7 @@ namespace Example.Controllers
                 }
             };
 
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>())
             {
                 var repository = uow.GetRepository<Department>();
 

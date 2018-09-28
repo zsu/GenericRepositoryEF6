@@ -54,6 +54,8 @@
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\RepositoryNotFoundException.cs" />
     <Compile Include="Paging\DataPage.cs" />
+    <Compile Include="Paging\DataPager.cs" />
+    <Compile Include="Paging\IDataPager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\Filter.cs" />
     <Compile Include="Query\Includes.cs" />

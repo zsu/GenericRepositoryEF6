@@ -16,14 +16,14 @@ namespace GenericRepository.Uow
     //        return uow;
     //    }
     //}
-    public class UowProvider<TDbContext> : IUowProvider where TDbContext:DbContext,new()
+    public class UowProvider:IUowProvider
     {
         public UowProvider()
         { }
 
-        public IUnitOfWork CreateUnitOfWork(bool enableLogging = false)
+        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool enableLogging = false) where TEntityContext : DbContext,new()
         {
-            var uow = new UnitOfWork<TDbContext>();
+            var uow = new UnitOfWork(new TEntityContext());
             return uow;
         }
     }

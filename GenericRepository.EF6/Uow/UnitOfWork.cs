@@ -8,9 +8,4 @@ namespace GenericRepository.Uow
         public UnitOfWork(DbContext context) : base(context)
         { }
     }
-    public class UnitOfWork<TDbContext> : UnitOfWorkBase<TDbContext>, IUnitOfWork where TDbContext:DbContext,new()
-    {
-        public UnitOfWork() : base(new TDbContext())
-        { }
-    }
 }
