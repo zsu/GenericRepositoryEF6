@@ -32,7 +32,7 @@ namespace GenericRepository.Paging
 
         public async Task<DataPage<TEntity>> GetAsync(int pageNumber, int pageLength, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
-            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>(false))
+            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>())
             {
                 var repository = uow.GetRepository<TEntity>();
 
@@ -46,7 +46,7 @@ namespace GenericRepository.Paging
 
         public DataPage<TEntity> Query(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
-            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>(false))
+            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>())
             {
                 var repository = uow.GetRepository<TEntity>();
 
@@ -60,7 +60,7 @@ namespace GenericRepository.Paging
 
         public async Task<DataPage<TEntity>> QueryAsync(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
-            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>(false))
+            using (var uow = _uowProvider.CreateUnitOfWork<TEntityContext>())
             {
                 var repository = uow.GetRepository<TEntity>();
 
