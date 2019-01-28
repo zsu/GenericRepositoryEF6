@@ -6,7 +6,7 @@
     <authors>Zhicheng Su</authors>
     <owners>Zhicheng Su</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
-    <projectUrl>https://github.com/zsu/GenericeRepositoryEF6</projectUrl>
+    <projectUrl>https://github.com/zsu/GenericRepositoryEF6</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GenericRepository is a data access library using repository pattern.</description>
     <copyright>Copyright 2017 Zhicheng Su</copyright>
