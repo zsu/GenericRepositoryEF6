@@ -17,8 +17,8 @@ Install-Package GenericRepository.EF6
   * Annotate key property in entity classes with [Key] attribute
   * Get the repository object and call functions:
   ```xml
-            var _uowProvider=new UowProvider<AppContext>();
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            var _uowProvider=new UowProvider();
+            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>())
             {
                 var repository = uow.GetRepository<Department>();
 
