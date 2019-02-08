@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository.EF6", "Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{3DF16395-C0E3-4EEE-9208-EDF825B8A47C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository.Mvc", "GenericRepository.MVC\GenericRepository.Mvc.csproj", "{6BEC9782-05C7-40B6-B237-23BCE08F8166}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository.EF6.Mvc", "GenericRepository.EF6.MVC\GenericRepository.EF6.Mvc.csproj", "{6BEC9782-05C7-40B6-B237-23BCE08F8166}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

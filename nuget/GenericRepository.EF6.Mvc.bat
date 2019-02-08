@@ -1,0 +1,1 @@
+C:\Projects\Home\nuget pack GenericRepository.EF6.Mvc.nuspec

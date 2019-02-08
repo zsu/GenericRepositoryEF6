@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>GenericRepository.Mvc</id>
+    <id>GenericRepository.EF6.Mvc</id>
     <version>1.0.0</version>
     <authors>Zhicheng Su</authors>
     <owners>Zhicheng Su</owners>
@@ -16,6 +16,6 @@
     </dependencies>
   </metadata>
   	<files>
-		<file src="..\GenericRepository.Mvc\bin\Release\GenericRepository.Mvc.dll" target="lib\net45\GenericRepository.Mvc.dll" />
+		<file src="..\GenericRepository.EF6.Mvc\bin\Release\GenericRepository.EF6.Mvc.dll" target="lib\net45\GenericRepository.EF6.Mvc.dll" />
 	</files>
 </package>

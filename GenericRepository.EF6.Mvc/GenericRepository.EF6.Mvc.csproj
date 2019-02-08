@@ -7,8 +7,8 @@
     <ProjectGuid>{6BEC9782-05C7-40B6-B237-23BCE08F8166}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GenericRepository.Mvc</RootNamespace>
-    <AssemblyName>GenericRepository.Mvc</AssemblyName>
+    <RootNamespace>GenericRepository</RootNamespace>
+    <AssemblyName>GenericRepository.EF6.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
