@@ -266,7 +266,7 @@ namespace GenericRepository.Repositories
         {
             Context.Set<TEntity>().Attach(entity);
         }
-        private IEnumerable<PropertyInfo> GetKeyProperties()
+        protected virtual IEnumerable<PropertyInfo> GetKeyProperties()
         {
             var type = typeof(TEntity);
             var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
