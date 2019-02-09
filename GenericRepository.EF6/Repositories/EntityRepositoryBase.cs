@@ -56,20 +56,15 @@ namespace GenericRepository.Repositories
             var result = QueryDb(null, orderBy, includes).AsNoTracking();
             return await result.Skip(startRow).Take(pageLength).ToListAsync();
         }
-        // Summary:
-        //     Finds an entity with the given primary key values. If an entity with the given
-        //     primary key values exists in the context, then it is returned immediately without
-        //     making a request to the store. Otherwise, a request is made to the store for
-        //     an entity with the given primary key values and this entity, if found, is attached
-        //     to the context and returned. If no entity is found in the context or the store,
-        //     then null is returned.
-        //
-        // Parameters:
-        //   keyValues:
-        //     The values of the primary key for the entity to be found.
+ 
         public virtual TEntity Find(params object[] keyValues)
         {
             var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
+            return existing;
+        }
+        public virtual Task<TEntity> FindAsync(params object[] keyValues)
+        {
+            var existing = Context.Set<TEntity>().FindAsync(keyValues.ToArray());
             return existing;
         }
         public virtual TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
@@ -184,10 +179,6 @@ namespace GenericRepository.Repositories
             if (existing == null) throw new Exception(string.Format("Cannot find entity type {0} with key {1}", typeof(TEntity).Name, string.Join(",", keyValues.ToArray())));
             Context.Entry(existing).CurrentValues.SetValues(entity);
             return existing;
-        }
-        public virtual void SaveChanges()
-        {
-            Context.SaveChanges();
         }
         public virtual void Remove(TEntity entity)
         {
