@@ -57,24 +57,40 @@ namespace GenericRepository.Repositories
 			var result = QueryDb(null, orderBy, includes).AsNoTracking();
 			return await result.Skip(startRow).Take(pageLength).ToListAsync();
 		}
-
-		public virtual TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
-		{
-			IQueryable<TEntity> query = Context.Set<TEntity>();
+        // Summary:
+        //     Finds an entity with the given primary key values. If an entity with the given
+        //     primary key values exists in the context, then it is returned immediately without
+        //     making a request to the store. Otherwise, a request is made to the store for
+        //     an entity with the given primary key values and this entity, if found, is attached
+        //     to the context and returned. If no entity is found in the context or the store,
+        //     then null is returned.
+        //
+        // Parameters:
+        //   keyValues:
+        //     The values of the primary key for the entity to be found.
+        public virtual TEntity Find(params object[] keyValues)
+        {
+            var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
+            return existing;
+        }
+        public virtual TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            IQueryable<TEntity> query = Context.Set<TEntity>();
 
             if (includes != null)
             {
                 query = includes(query);
             }
-            //if(typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
-            //    return query.SingleOrDefault(x => x.Id.Equals(id));
+
+            //if (typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
+            //    return query.SingleOrDefaultAsync(x => x.Id.Equals(id));
             var properties = GetKeyProperties();
-            if (properties.Count() != 1 || !(properties.First().PropertyType== id.GetType()))
+            if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
             return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
-        }
 
-		public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        }
+        public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
 			IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -154,7 +170,26 @@ namespace GenericRepository.Repositories
             Context.Entry(existing).CurrentValues.SetValues(entity);
             return existing;
         }
+        public virtual TEntity Update(object entity)
+        {
+            List<object> keyValues = new List<object>();
+            var properties = GetKeyProperties();
+            if (properties.Count() == 0)
+                throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
+            foreach (var key in properties)
+            {
+                keyValues.Add(entity.GetType().GetProperty(key.Name).GetValue(entity));
+            }
 
+            var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
+            if (existing == null) throw new Exception(string.Format("Cannot find entity type {0} with key {1}", typeof(TEntity).Name, string.Join(",", keyValues.ToArray())));
+            Context.Entry(existing).CurrentValues.SetValues(entity);
+            return existing;
+        }
+        public virtual void SaveChanges()
+        {
+            Context.SaveChanges();
+        }
         public virtual void Remove(TEntity entity)
 		{
             Context.Set<TEntity>().Attach(entity);
@@ -162,15 +197,18 @@ namespace GenericRepository.Repositories
             Context.Set<TEntity>().Remove(entity);
 		}
 
-		public virtual void Remove(object id)
+		public virtual void Remove(params object[] keyValues)
 		{
             var entity = new TEntity();
             var properties = GetKeyProperties();
-            if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
-                throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
-            foreach (var key in properties)
+            //if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
+            //    throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
+            if(properties.Count()!=keyValues.Count())
+                throw new Exception("Wrong number of key values.");
+            for (int i=0;i<properties.Count();i++) 
             {
-                entity.GetType().GetProperty(properties.First().Name).SetValue(entity, id);
+                var key = properties.ElementAt(i);
+                entity.GetType().GetProperty(key.Name).SetValue(entity, keyValues[i]);
             }
 
             this.Remove(entity);
