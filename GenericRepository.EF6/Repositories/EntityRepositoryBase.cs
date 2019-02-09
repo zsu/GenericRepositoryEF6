@@ -148,10 +148,6 @@ namespace GenericRepository.Repositories
             Context.Set<TEntity>().Add(entity);
         }
 
-        public virtual TEntity Update(TEntity entity)
-        {
-            return Update(entity);
-        }
         public virtual TEntity Update(object entity)
         {
             List<object> keyValues = new List<object>();

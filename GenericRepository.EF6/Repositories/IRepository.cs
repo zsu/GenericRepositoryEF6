@@ -52,13 +52,6 @@ namespace GenericRepository.Repositories
 
         void Add(TEntity entity);
         /// <summary>
-        //     Sets the values of this dictionary by reading values from another dictionary.
-        //     The other dictionary must be based on the same type as this dictionary, or a
-        //     type derived from the type for this dictionary.
-        /// </summary>
-        /// <param name="entity">The dictionary to read values from.</param>
-        TEntity Update(TEntity entity);
-        /// <summary>
         //     Sets the values of this dictionary by reading values out of the given object.
         //     The given object can be of any type. Any property on the object with a name that
         //     matches a property name in the dictionary and can be read will be read. Other
