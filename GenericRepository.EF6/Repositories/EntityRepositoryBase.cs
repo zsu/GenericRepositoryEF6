@@ -57,12 +57,12 @@ namespace GenericRepository.Repositories
             return await result.Skip(startRow).Take(pageLength).ToListAsync();
         }
  
-        public virtual TEntity Find(params object[] keyValues)
+        public virtual TEntity Get(params object[] keyValues)
         {
             var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
             return existing;
         }
-        public virtual Task<TEntity> FindAsync(params object[] keyValues)
+        public virtual Task<TEntity> GetAsync(params object[] keyValues)
         {
             var existing = Context.Set<TEntity>().FindAsync(keyValues.ToArray());
             return existing;

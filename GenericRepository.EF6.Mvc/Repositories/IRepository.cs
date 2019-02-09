@@ -24,7 +24,7 @@ namespace GenericRepository.Repositories
         // Parameters:
         //   keyValues:
         //     The values of the primary key for the entity to be found.
-        TEntity Find(params object[] keyValues);
+        TEntity Get(params object[] keyValues);
         // Summary:
         //     Finds an entity with the given primary key values. If an entity with the given
         //     primary key values exists in the context, then it is returned immediately without
@@ -36,7 +36,7 @@ namespace GenericRepository.Repositories
         // Parameters:
         //   keyValues:
         //     The values of the primary key for the entity to be found.
-        Task<TEntity> FindAsync(params object[] keyValues);
+        Task<TEntity> GetAsync(params object[] keyValues);
         TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 		Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 
