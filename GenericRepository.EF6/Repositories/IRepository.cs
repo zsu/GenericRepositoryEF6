@@ -49,15 +49,14 @@ namespace GenericRepository.Repositories
 
         void Load(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task LoadAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+
+        void Add(TEntity entity);
         /// <summary>
         //     Sets the values of this dictionary by reading values from another dictionary.
         //     The other dictionary must be based on the same type as this dictionary, or a
         //     type derived from the type for this dictionary.
         /// </summary>
         /// <param name="entity">The dictionary to read values from.</param>
-
-        void Add(TEntity entity);
-
         TEntity Update(TEntity entity);
         /// <summary>
         //     Sets the values of this dictionary by reading values out of the given object.

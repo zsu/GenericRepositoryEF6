@@ -151,19 +151,7 @@ namespace GenericRepository.Repositories
 
 		public virtual TEntity Update(TEntity entity)
 		{
-            List<object> keyValues = new List<object>();
-            var properties = GetKeyProperties();
-            if (properties.Count() == 0)
-                throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
-            foreach (var key in properties)
-            {
-                keyValues.Add(entity.GetType().GetProperty(key.Name).GetValue(entity));
-            }
-
-            var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
-            if (existing == null) throw new Exception(string.Format("Cannot find entity type {0} with key {1}", typeof(TEntity).Name, string.Join(",", keyValues.ToArray())));
-            Context.Entry(existing).CurrentValues.SetValues(entity);
-            return existing;
+            return Update(entity);
         }
         public virtual TEntity Update(object entity)
         {
