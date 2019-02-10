@@ -62,9 +62,9 @@ namespace GenericRepository.Repositories
             var existing = Context.Set<TEntity>().Find(keyValues.ToArray());
             return existing;
         }
-        public virtual Task<TEntity> GetAsync(params object[] keyValues)
+        public virtual async Task<TEntity> GetAsync(params object[] keyValues)
         {
-            var existing = Context.Set<TEntity>().FindAsync(keyValues.ToArray());
+            var existing = await Context.Set<TEntity>().FindAsync(keyValues.ToArray());
             return existing;
         }
         public virtual TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
@@ -84,7 +84,7 @@ namespace GenericRepository.Repositories
             return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
-        public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual async Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -98,7 +98,7 @@ namespace GenericRepository.Repositories
             var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
-            return query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
+            return await query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
 
@@ -200,7 +200,7 @@ namespace GenericRepository.Repositories
             return query.Any();
         }
 
-        public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null)
+        public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -209,7 +209,7 @@ namespace GenericRepository.Repositories
                 query = query.Where(filter);
             }
 
-            return query.AnyAsync();
+            return await query.AnyAsync();
         }
 
         public virtual int Count(Expression<Func<TEntity, bool>> filter = null)
@@ -224,7 +224,7 @@ namespace GenericRepository.Repositories
             return query.Count();
         }
 
-        public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
+        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -233,7 +233,7 @@ namespace GenericRepository.Repositories
                 query = query.Where(filter);
             }
 
-            return query.CountAsync();
+            return await query.CountAsync();
         }
 
         protected IQueryable<TEntity> QueryDb(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes)
