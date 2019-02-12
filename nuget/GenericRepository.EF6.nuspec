@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GenericRepository.EF6</id>
-    <version>1.1.6</version>
+    <version>1.1.8</version>
     <authors>Zhicheng Su</authors>
     <owners>Zhicheng Su</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
