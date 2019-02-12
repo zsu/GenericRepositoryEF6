@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GenericRepository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository.Mvc
 {
     public class GenericEntityRepository<TEntity> : EntityRepositoryBase<DbContext, TEntity> where TEntity : class, new()
     {

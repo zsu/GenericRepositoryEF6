@@ -1,11 +1,10 @@
-﻿using GenericRepository.Query;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GenericRepository.Paging
+namespace GenericRepository
 {
     public class DataPager<TEntityContext,TEntity> : IDataPager<TEntity> where TEntityContext:DbContext,new() where TEntity : class, new()
     {

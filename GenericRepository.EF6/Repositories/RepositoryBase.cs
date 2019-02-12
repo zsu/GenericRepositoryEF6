@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository
 {
     public abstract class RepositoryBase<TContext> : IRepositoryInjection where TContext : DbContext
     {

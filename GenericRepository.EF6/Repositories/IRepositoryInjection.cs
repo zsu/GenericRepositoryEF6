@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository
 {
     public interface IRepositoryInjection
     {

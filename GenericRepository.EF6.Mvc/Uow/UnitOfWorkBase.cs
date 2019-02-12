@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using GenericRepository.Exceptions;
-using GenericRepository.Repositories;
 using System.Data.Entity;
-using GenericRepository.Paging;
+using GenericRepository;
 
-namespace GenericRepository.Uow
+namespace GenericRepository.Mvc
 {
     public abstract class UnitOfWorkBase<TContext> : IUnitOfWorkBase where TContext : DbContext
     {

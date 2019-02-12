@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace GenericRepository.Uow
+namespace GenericRepository
 {
     public class UnitOfWork : UnitOfWorkBase<DbContext>, IUnitOfWork
     {

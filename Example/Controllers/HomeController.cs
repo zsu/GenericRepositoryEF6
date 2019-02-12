@@ -1,7 +1,5 @@
 ﻿using Example.Entities;
 using GenericRepository;
-using GenericRepository.Query;
-using GenericRepository.Uow;
 using NLog;
 using System;
 using System.Collections.Generic;
