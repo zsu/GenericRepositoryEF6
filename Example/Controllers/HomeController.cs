@@ -2,6 +2,7 @@
 using GenericRepository;
 using GenericRepository.Query;
 using GenericRepository.Uow;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,14 +15,15 @@ namespace Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUowProvider _uowProvider=new UowProvider();
+        private static Logger logger = LogManager.GetLogger(typeof(DataAccess).ToString());//.GetCurrentClassLogger();
+        private readonly IUowProvider _uowProvider=new UowProvider(logger.Info);
 
         public async Task<ActionResult> Index()
         {
             //await Seed();
             IEnumerable<Department> buildings = null;
-
-            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>())
+            logger.Info("test");
+            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>(true))
             {
                 var repository = uow.GetRepository<Department>();
 
@@ -129,7 +131,7 @@ namespace Example.Controllers
                 }
             };
 
-            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>())
+            using (var uow = _uowProvider.CreateUnitOfWork<AppContext>(true))
             {
                 var repository = uow.GetRepository<Department>();
 
