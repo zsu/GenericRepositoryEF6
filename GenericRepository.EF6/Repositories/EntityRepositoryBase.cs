@@ -80,7 +80,9 @@ namespace GenericRepository
             var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
-            return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
+            var valueType = id.GetType();
+            return query.Where(PropertyEquals<TEntity,object > (typeof(TEntity).GetProperty(properties.First().Name), id)).SingleOrDefault();
+            //return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
         public virtual async Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
@@ -97,7 +99,8 @@ namespace GenericRepository
             var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
-            return await query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
+             return await query.Where(PropertyEquals<TEntity,object > (typeof(TEntity).GetProperty(properties.First().Name), id)).SingleOrDefaultAsync();
+           //return await query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
 
@@ -270,6 +273,13 @@ namespace GenericRepository
             var type = typeof(TEntity);
             var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
             return properties;
+        }
+        private Expression<Func<TItem, bool>> PropertyEquals<TItem, TValue>(PropertyInfo property, TValue value)
+        {
+            var param = Expression.Parameter(typeof(TItem));
+            var body = Expression.Equal(Expression.Property(param, property),
+                Expression.Constant(value));
+            return Expression.Lambda<Func<TItem, bool>>(body, param);
         }
 
     }

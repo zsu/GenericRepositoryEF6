@@ -20,11 +20,10 @@ namespace Example.Controllers
         {
             //await Seed();
             IEnumerable<Department> buildings = null;
-            logger.Info("test");
             using (var uow = _uowProvider.CreateUnitOfWork<AppContext>(true))
             {
                 var repository = uow.GetRepository<Department>();
-
+                //var t1=repository.Get(1);
                 //**************************************
 
                 var includes = new Includes<Department>(query =>
