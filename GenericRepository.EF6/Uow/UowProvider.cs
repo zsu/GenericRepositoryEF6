@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using GenericRepository.Context;
+using Microsoft.Extensions.Logging;
 
 namespace GenericRepository.Uow
 {
@@ -20,11 +21,30 @@ namespace GenericRepository.Uow
     {
         public UowProvider()
         { }
+        public UowProvider(ILogger logger)
+        {
+            _logger = logger;
+        }
 
+        private readonly ILogger _logger;
+
+        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext, new()
+        {
+            var context = new TEntityContext();
+
+            if (!trackChanges)
+                context.Configuration.AutoDetectChangesEnabled = trackChanges;
+            if (enableLogging)
+            {
+                if(_logger==null && _logger!=null)
+                    context.Database.Log = x => _logger.LogInformation(x);
+            }
+            var uow = new UnitOfWork(context);
+            return uow;
+        }
         public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool enableLogging = false) where TEntityContext : DbContext,new()
         {
-            var uow = new UnitOfWork(new TEntityContext());
-            return uow;
+            return CreateUnitOfWork<TEntityContext>(true, enableLogging);
         }
     }
 }
