@@ -1,3 +1,6 @@
+[![NuGet](https://img.shields.io/nuget/v/GenericRepository.EF6.Mvc.svg)](https://www.nuget.org/packages/GenericRepository.EF6.Mvc)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 # What is GenericRepository
 
 GenericRepository is a data access library using repository pattern.
